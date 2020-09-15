@@ -1,17 +1,16 @@
 """Trinary XOR operation"""
 import dynet as dy
+import itertools
 
 
 def create_xor_instances(epochs=2000):
     questions = []
     answers = []
     for _ in range(epochs):
-        for x1 in 0,1:
-            for x2 in 0,1:
-                for x3 in 0,1:
-                    answer = 1 if (x1+x2+x3)%2 else 0
-                    questions.append((x1,x2,x3))
-                    answers.append(answer)
+        for x1, x2, x3 in itertools.product((0,1), repeat=3):
+            answer = (x1+x2+x3) % 2
+            questions.append((x1,x2,x3))
+            answers.append(answer)
 
     return questions, answers
 
